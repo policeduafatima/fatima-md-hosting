@@ -5,7 +5,7 @@
   "keywords": ["whatsapp", "bot", "dua", "baileys"],
   "env": {
     "SESSION_ID": {
-      "description": "Paste your ARSL~ session ID here",
+      "description": "Paste your IK~ session ID here",
       "required": true
     },
     "APP_NAME": {
