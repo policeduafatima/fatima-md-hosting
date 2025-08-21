@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deploy FATIMA-MD Bot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    input, button {
+      padding: 12px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    input {
+      width: 250px;
+    }
+    button {
+      background-color: #00ffcc;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #00bfa5;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 FATIMA-MD Bot VPS Hosting</h1>
+  <p>Paste your <strong>GitHub username</strong> and <strong>SESSION_ID</strong> to deploy your bot instantly.</p>
+  <input id="username" placeholder="Enter your username (e.g. policeduafatima)" />
+  <br/>
+  <input id="session" placeholder="Enter your SESSION_ID (e.g. IK~)" />
+  <br/>
+  <button onclick="deploy()">🚀 Deploy Bot</button>
+  <div id="result"></div>
+
+  <script>
+    async function deploy() {
+      const username = document.getElementById('username').value.trim();
+      const session = document.getElementById('session').value.trim();
+      const result = document.getElementById('result');
+
+      if (!username || !session) {
+        return result.innerText = '❌ Please fill both fields.';
+      }
+
+      result.innerText = '⏳ Deploying... Please wait...';
+
+      try {
+        const res = await fetch('/deploy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, session_id: session })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          result.innerText = data.message;
+        } else {
+          result.innerText = `❌ ${data.error}`;
+        }
+      } catch (e) {
+        result.innerText = '❌ Failed to deploy. Try again.';
+      }
+    }
+  </script>
+</body>
+    </html>
+
